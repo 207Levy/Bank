@@ -1,3 +1,2 @@
 USE bank;
-
-DROP TABLE Categories
+DROP TABLE Transactions
