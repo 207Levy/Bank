@@ -72,3 +72,35 @@ class BankDBManager:
         except Exception as e:
             print(f"Error in deleting transaction #{tr_id}...")
             print(e)
+
+    def get_expenses_by_date(self):
+        connection = self.connection
+        try:
+            with connection.cursor() as cursor:
+                query = f"""
+                        SELECT tr_date ,SUM(amount)
+                        FROM transactions            
+                        GROUP BY tr_date;
+                        """
+                cursor.execute(query)
+                result = cursor.fetchall()
+                return result
+        except Exception as e:
+            print(f"Error in getting transactions bt dates...")
+            print(e)
+
+    def get_expenses_by_categories(self):
+        connection = self.connection
+        try:
+            with connection.cursor() as cursor:
+                query = f"""
+                        SELECT category ,SUM(amount)
+                        FROM transactions            
+                        GROUP BY category;
+                        """
+                cursor.execute(query)
+                result = cursor.fetchall()
+                return result
+        except Exception as e:
+            print(f"Error in getting transactions by categories...")
+            print(e)

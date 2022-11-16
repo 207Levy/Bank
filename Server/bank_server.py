@@ -6,6 +6,7 @@ from fastapi import FastAPI
 
 from fastapi.middleware.cors import CORSMiddleware
 from router import transaction_route
+from router import breakdown_route
 app = FastAPI()
 
 origins = [
@@ -25,8 +26,8 @@ app.add_middleware(
 
 # rest of the routes
 
-app.include_router(transaction_route.route)
-
+app.include_router(transaction_route.router)
+app.include_router(breakdown_route.router)
 
 
 if __name__ == "__main__":

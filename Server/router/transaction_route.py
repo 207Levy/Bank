@@ -6,13 +6,13 @@ from dto.Transaction import Transaction
 from datetime import datetime
 bank_db_manager = BankDBManager()
 
-route = APIRouter(
+router = APIRouter(
     prefix="/transactions",
     tags=["transactions"]
 )
 
 
-@route.get('/')
+@router.get('/')
 def get_transactions(category="", date="", amount=""):
     list_of_all_transactions: list[Transaction] = [
         Transaction(**res) for res in bank_db_manager.get_transactions()]
@@ -32,7 +32,7 @@ def get_transactions(category="", date="", amount=""):
     return list_of_all_transactions
 
 
-@route.post('/')
+@router.post('/')
 async def add_transaction(request: Request):
     transaction: Transaction = Transaction(await request.json())
     new_transactions = [].append(transaction)
@@ -40,6 +40,6 @@ async def add_transaction(request: Request):
     return new_transactions
 
 
-@route.delete('/{transactionID}')
+@router.delete('/{transactionID}')
 async def delete_transaction(tranactionID):
     bank_db_manager.delete_transaction(tranactionID)
