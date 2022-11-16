@@ -28,7 +28,7 @@ class BankDBManager:
                 cursor.execute(query)
                 connection.commit()
         except Exception as e:
-            print(f"Error in initializing categories table")
+            print(f"Error in adding new categories...")
             print(e)
 
     def add_new_transactions(self, transactions):
@@ -43,5 +43,32 @@ class BankDBManager:
                 cursor.execute(query)
                 connection.commit()
         except Exception as e:
-            print(f"Error in initializing categories table")
+            print(f"Error in adding new transactions...")
+            print(e)
+
+    def get_transactions(self):
+        connection = self.connection
+        try:
+            with connection.cursor() as cursor:
+                query = f"""
+                        SELECT * FROM transactions;
+                        """
+                cursor.execute(query)
+                result = cursor.fetchall()
+                return result
+        except Exception as e:
+            print(f"Error in getting transactions...")
+            print(e)
+
+    def delete_transaction(self, tr_id):
+        connection = self.connection
+        try:
+            with connection.cursor() as cursor:
+                query = f"""
+                        DELETE FROM transactions WHERE id={tr_id};
+                        """
+                cursor.execute(query)
+                result = cursor.fetchall()
+        except Exception as e:
+            print(f"Error in deleting transaction #{tr_id}...")
             print(e)
