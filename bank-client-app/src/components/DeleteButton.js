@@ -5,7 +5,12 @@ export default function DeleteButton(props) {
     props.deleteFunk(props.id);
   };
   return (
-    <Button variant="contained" color="warning" href="/" onClick={deleteTransaction}>
+    <Button
+      variant="contained"
+      color="warning"
+      
+      onClick={deleteTransaction}
+    >
       Delete
     </Button>
   );

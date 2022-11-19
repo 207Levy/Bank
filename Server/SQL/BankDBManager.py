@@ -33,7 +33,7 @@ class BankDBManager:
             
     def get_categories(self):
         try:
-            return self.execute_query(bank_app_queries["get_cateories"])
+            return self.execute_query(bank_app_queries["get_categories"])
         except Exception as e:
            print(f"Error in getting categories...")
            print(e)

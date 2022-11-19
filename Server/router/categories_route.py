@@ -15,4 +15,4 @@ router = APIRouter(
 @router.get('/')
 def get_cateories():
     categories = bank_db_manager.get_categories()
-    return categories
+    return [c["category"] for c in categories]

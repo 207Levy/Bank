@@ -9,12 +9,24 @@ export default class BankApiManager {
     return await axios.get(this.baseUrl + "transactions");
   }
 
+  async getFilteredTransactions(args) {
+    return await axios.get(
+      this.baseUrl +
+        "transactions" +
+        `?category=${args["category"]}&amount=${args["amount"]}&date=${args["date"]}`
+    );
+  }
+
   async getBreakdown() {
     return await axios.get(this.baseUrl + "breakdown");
   }
 
   async getBalance() {
     return await axios.get(this.baseUrl + "transactions/balance");
+  }
+
+  async getCatgories() {
+    return await axios.get(this.baseUrl + "categories");
   }
 
   async deleteTransaction(id) {

@@ -6,6 +6,7 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import TransactionsTable from "./components/transactionsTable";
 import BankApiManager from "./serverApi/BankApiManger";
 import NewTransactionCard from "./components/NewTransactionCard";
+import FilterBar from "./components/FilterBar";
 
 export default class App extends Component {
   constructor() {
@@ -14,24 +15,41 @@ export default class App extends Component {
     this.state = {
       BankApiManager: apiManager,
       transactions: [],
-      categories: []
+      categories: [],
     };
   }
 
   async componentDidMount() {
     const transactionsFromApi =
       await this.state.BankApiManager.getAllTransactions();
-    console.log(transactionsFromApi.data)
-    this.setState({ transactions: transactionsFromApi.data });
+    const categoriesFromApi = await this.state.BankApiManager.getCatgories();
+
+    this.setState({
+      transactions: transactionsFromApi.data,
+      categories: categoriesFromApi.data,
+    });
   }
-  async getAllTransactions() {
-    const tr = await this.state.apiManager.getAllTransactions();
-    console.log(tr);
-    return tr;
-  }
-  deleteTransaction = (id) => {
+
+  getAllTransactions = async () => {
+    const transactions = await this.state.BankApiManager.getAllTransactions();
+    this.setState({ transactions: transactions.data });
+  };
+
+  getFilteredTransactions = async (args) => {
+    const transactions =
+      await this.state.BankApiManager.getFilteredTransactions(args);
+    this.setState({ transactions: transactions.data });
+  };
+
+  deleteTransaction = async (id) => {
     this.state.BankApiManager.deleteTransaction(id);
+    this.getAllTransactions()
+  };
+
+  addTransaction = (transaction) => {
+    this.state.BankApiManager.addNewTransaction(transaction);
     this.setState({ transactions: this.getAllTransactions() });
+    alert("transactions added successfuly");
   };
   render() {
     const state = this.state;
@@ -45,17 +63,27 @@ export default class App extends Component {
             exact
             path="/"
             render={() => (
-              <TransactionsTable
-                transactions={this.state.transactions}
-                deleteFunk={this.deleteTransaction}
-              />
+              <div>
+                <FilterBar
+                  categories={this.state.categories}
+                  filter={this.getFilteredTransactions}
+                  reset={this.getAllTransactions}
+                />
+                <TransactionsTable
+                  transactions={this.state.transactions}
+                  deleteFunk={this.deleteTransaction}
+                />
+              </div>
             )}
           />
           <Route
             exact
             path="/Operations"
             render={() => (
-              <NewTransactionCard/>
+              <NewTransactionCard
+                categories={this.state.categories}
+                addNewTransaction={this.addTransaction}
+              />
             )}
           />
         </div>

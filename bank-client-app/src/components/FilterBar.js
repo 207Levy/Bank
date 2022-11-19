@@ -10,10 +10,9 @@ import { useState } from "react";
 import { MenuItem, Select, TextareaAutosize, TextField } from "@mui/material";
 import SelectLabels from "./SelectLabel";
 
-export default function NewTransactionCard(props) {
+export default function FilterBar(props) {
   const [category, setCategory] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [vendor, setVendor] = useState("");
+  const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
 
   const changeCategory = (cat) => {
@@ -25,72 +24,49 @@ export default function NewTransactionCard(props) {
     setDate(value);
   };
 
-  const handleVendor = (event) => {
-    const value = event.target.value;
-    setVendor(value);
-  };
-
   const handleAmount = (event) => {
     const value = event.target.value;
     setAmount(value);
   };
 
-  const addNewTransaction = () => {
-    if (vendor === "" || category === "") {
-      alert("You must input all requires lines *");
-      return;
-    }
-    const transaction = {
-      vendor: vendor,
+  const filterTransactions = () => {
+    const filters = {
       amount: amount,
-      tr_date: date,
+      date: date,
       category: category,
     };
-    props.addNewTransaction(transaction);
+    props.filter(filters);
   };
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography variant="h4" component="div" color="primary">
-          New Transaction
-        </Typography>
-
-        <TextField
-          required
-          id="outlined-required"
-          label="Vendor-info"
-          defaultValue=""
-          placeholder="Vendor"
-          onChange={handleVendor}
-        />
-        <br />
-        <br />
+    <div sx={{ minWidth: 275 }}>
+      <Box>
         <SelectLabels
           categories={props.categories}
           changeCategory={changeCategory}
         />
-        <br />
-        <br />
-
         <TextField
           component="div"
-          required
           label="Amount"
-          id="outlined-required"
           type="number"
           placeholder="Amount"
           onChange={handleAmount}
         />
-        <br />
-        <br />
 
         <TextField id="date-input" type="date" onChange={handleDate} />
-      </CardContent>
-      <CardActions>
-        <Button variant="contained" color="success" onClick={addNewTransaction}>
-          Add Trnsaction
+      </Box>
+
+      <Box>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={filterTransactions}
+        >
+          Filter
         </Button>
-      </CardActions>
-    </Card>
+        <Button variant="contained" color="primary" onClick={props.reset}>
+          Reset
+        </Button>
+      </Box>
+    </div>
   );
 }
