@@ -30,7 +30,7 @@ categories = [
     "Entertainment"
 ]
 
-tranactions = [
+transactions = [
     {
         "amount": -1000,
         "category": "Food",
@@ -56,7 +56,7 @@ tranactions = [
 def init_the_database():
     db_manager = BankDBManager.BankDBManager()
     db_manager.add_new_categories(categories)
-    db_manager.add_new_transactions(tranactions)
+    db_manager.add_new_transaction(transactions)
 
 
 c = [f"({category})" for category in categories]

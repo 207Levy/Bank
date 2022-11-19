@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AccountBalance from "@mui/icons-material/AccountBalance";
 import { Link } from "react-router-dom";
-import { Divider } from "@mui/material";
+
 const pages = ["Transactions", "Operations", "Breakdown"];
 
 function ResponsiveAppBar() {
@@ -83,7 +83,7 @@ function ResponsiveAppBar() {
                     <Link
                       color="blue"
                       style={{ textDecoration: "none", color: "#2196f3" }}
-                      to={`/${page}`}
+                      to={page === "Transactions" ? "/" : `/${page}`}
                     >
                       {page}
                     </Link>
@@ -120,7 +120,7 @@ function ResponsiveAppBar() {
               >
                 <Link
                   style={{ textDecoration: "none", color: "white" }}
-                  to={`/${page}`}
+                  to={page === "Transactions" ? "/" : `/${page}`}
                 >
                   {page}
                 </Link>

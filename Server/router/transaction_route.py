@@ -12,6 +12,10 @@ router = APIRouter(
 )
 
 
+@router.get('/balance')
+def get_balance():
+    return  bank_db_manager.get_balance()
+
 @router.get('/')
 def get_transactions(category="", date="", amount=""):
     list_of_all_transactions: list[Transaction] = [
@@ -34,12 +38,11 @@ def get_transactions(category="", date="", amount=""):
 
 @router.post('/')
 async def add_transaction(request: Request):
-    transaction: Transaction = Transaction(await request.json())
-    new_transactions = [].append(transaction)
-    bank_db_manager.add_new_transactions(new_transactions)
-    return new_transactions
+    transaction: Transaction = Transaction(**(await request.json()))
+    bank_db_manager.add_new_transaction(transaction)
+    return transaction
 
 
 @router.delete('/{transactionID}')
-async def delete_transaction(tranactionID):
-    bank_db_manager.delete_transaction(tranactionID)
+async def delete_transaction(transactionID: int):
+    bank_db_manager.delete_transaction(transactionID)
