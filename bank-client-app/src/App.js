@@ -7,6 +7,8 @@ import TransactionsTable from "./components/transactionsTable";
 import BankApiManager from "./serverApi/BankApiManger";
 import NewTransactionCard from "./components/NewTransactionCard";
 import FilterBar from "./components/FilterBar";
+import { ExpensesPieChart } from "./components/ExpensesPieChart";
+import { Breakdown } from "./components/Breakdown";
 
 export default class App extends Component {
   constructor() {
@@ -16,23 +18,26 @@ export default class App extends Component {
       BankApiManager: apiManager,
       transactions: [],
       categories: [],
+      balance: 0,
     };
   }
 
   async componentDidMount() {
-    const transactionsFromApi =
-      await this.state.BankApiManager.getAllTransactions();
+    this.getAllTransactions();
     const categoriesFromApi = await this.state.BankApiManager.getCatgories();
 
     this.setState({
-      transactions: transactionsFromApi.data,
       categories: categoriesFromApi.data,
     });
   }
 
   getAllTransactions = async () => {
     const transactions = await this.state.BankApiManager.getAllTransactions();
-    this.setState({ transactions: transactions.data });
+    const balance = await this.state.BankApiManager.getBalance();
+    this.setState({
+      transactions: transactions.data,
+      balance: balance.data["SUM(amount)"],
+    });
   };
 
   getFilteredTransactions = async (args) => {
@@ -43,12 +48,12 @@ export default class App extends Component {
 
   deleteTransaction = async (id) => {
     this.state.BankApiManager.deleteTransaction(id);
-    this.getAllTransactions()
+    this.getAllTransactions();
   };
 
   addTransaction = (transaction) => {
     this.state.BankApiManager.addNewTransaction(transaction);
-    this.setState({ transactions: this.getAllTransactions() });
+    this.getAllTransactions();
     alert("transactions added successfuly");
   };
   render() {
@@ -57,7 +62,7 @@ export default class App extends Component {
       <Router>
         <div className="App">
           <div className="header">
-            <ResponsiveAppBar />
+            <ResponsiveAppBar balance={this.state.balance} />
           </div>
           <Route
             exact
@@ -84,6 +89,14 @@ export default class App extends Component {
                 categories={this.state.categories}
                 addNewTransaction={this.addTransaction}
               />
+            )}
+          />
+
+          <Route
+            exact
+            path="/Breakdown"
+            render={() => (
+              <Breakdown bankApiManager={this.state.BankApiManager}/>
             )}
           />
         </div>

@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 const pages = ["Transactions", "Operations", "Breakdown"];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -126,6 +126,9 @@ function ResponsiveAppBar() {
                 </Link>
               </Button>
             ))}
+          </Box>
+          <Box style={props.balance < 0 ? {backgroundColor:'#ed6c02', borderRadius: '10px'}: {backgroundColor:'#4BB543',borderRadius: '10px'}} sx={{ p:1, flexGrow: 0 }}>
+            <div  >Balance: {props.balance}</div>
           </Box>
         </Toolbar>
       </Container>

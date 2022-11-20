@@ -14,12 +14,14 @@ router = APIRouter(
 
 @router.get('/balance')
 def get_balance():
-    return  bank_db_manager.get_balance()
+    balance_as_array = bank_db_manager.get_balance()
+    return  balance_as_array[0]
 
 @router.get('/')
 def get_transactions(category="", date="", amount=""):
+    tranactions_from_db = bank_db_manager.get_transactions()
     list_of_all_transactions: list[Transaction] = [
-        Transaction(**res) for res in bank_db_manager.get_transactions()]
+        Transaction(**res) for res in tranactions_from_db]
 
     if category != "":
         list_of_all_transactions = [

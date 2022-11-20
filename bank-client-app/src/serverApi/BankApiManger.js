@@ -17,8 +17,8 @@ export default class BankApiManager {
     );
   }
 
-  async getBreakdown() {
-    return await axios.get(this.baseUrl + "breakdown");
+  getBreakdown() {
+    return axios.get(this.baseUrl + "breakdown");
   }
 
   async getBalance() {

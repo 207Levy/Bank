@@ -39,31 +39,42 @@ export default function FilterBar(props) {
   };
   return (
     <div sx={{ minWidth: 275 }}>
-      <Box>
+      <Box  sx={{ display: 'inline' }}>
         <SelectLabels
           categories={props.categories}
           changeCategory={changeCategory}
         />
         <TextField
-          component="div"
+          sx={{ m: 1, minWidth: 120 }}
           label="Amount"
           type="number"
           placeholder="Amount"
           onChange={handleAmount}
         />
 
-        <TextField id="date-input" type="date" onChange={handleDate} />
+        <TextField
+          sx={{ m: 1, minWidth: 120 }}
+          id="date-input"
+          type="date"
+          onChange={handleDate}
+        />
       </Box>
 
-      <Box>
+      <Box  sx={{ display: 'inline' }}>
         <Button
+          sx={{ m: 1, minWidth: 120 }}
           variant="contained"
           color="success"
           onClick={filterTransactions}
         >
           Filter
         </Button>
-        <Button variant="contained" color="primary" onClick={props.reset}>
+        <Button
+          sx={{ m: 1, minWidth: 120 }}
+          variant="contained"
+          color="primary"
+          onClick={props.reset}
+        >
           Reset
         </Button>
       </Box>

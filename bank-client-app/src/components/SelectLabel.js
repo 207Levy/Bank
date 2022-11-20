@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Box from "@mui/material/Box";
 
 export default function SelectLabels(props) {
   const [category, setCategory] = React.useState("");
@@ -15,14 +16,14 @@ export default function SelectLabels(props) {
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <Box id='xxxx' sx={{ display: 'inline' }}>
+      <FormControl sx={{m:1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           value={category}
-          label="Cateory"
+          label="Category"
           onChange={handleChange}
         >
           {props.categories.map((c) => (
@@ -30,6 +31,6 @@ export default function SelectLabels(props) {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 }

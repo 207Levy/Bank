@@ -74,7 +74,7 @@ export default function TransactionsTable(props) {
                     {columns.map((column) => {
                       const value = tr[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell style={typeof value === 'number' ? value < 0 ? {backgroundColor:'#ed6c02', borderRadius: '10px'} : {backgroundColor:'#4BB543',borderRadius: '10px'} : {backgroundColor:'white'}} key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}

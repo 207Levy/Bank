@@ -17,8 +17,8 @@ def get_breakdown():
     expenses_by_categories = bank_db_manager.get_expenses_by_categories()
     expenses_by_dates = bank_db_manager.get_expenses_by_date()
     result = {
-        'categories': expenses_by_categories,
-        'dates': expenses_by_dates
+        'categories': [{c["category"]: c["SUM(amount)"]} for c in  expenses_by_categories],
+        'dates': [{d["tr_date"]: d["SUM(amount)"]} for d in expenses_by_dates]
     }
 
     return result

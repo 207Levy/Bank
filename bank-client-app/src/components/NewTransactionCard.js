@@ -56,6 +56,7 @@ export default function NewTransactionCard(props) {
         </Typography>
 
         <TextField
+          sx={{ m: 1, minWidth: 120 }}
           required
           id="outlined-required"
           label="Vendor-info"
@@ -73,6 +74,7 @@ export default function NewTransactionCard(props) {
         <br />
 
         <TextField
+          sx={{ m: 1, minWidth: 120 }}
           component="div"
           required
           label="Amount"
@@ -84,7 +86,12 @@ export default function NewTransactionCard(props) {
         <br />
         <br />
 
-        <TextField id="date-input" type="date" onChange={handleDate} />
+        <TextField
+          sx={{ m: 1, minWidth: 120 }}
+          id="date-input"
+          type="date"
+          onChange={handleDate}
+        />
       </CardContent>
       <CardActions>
         <Button variant="contained" color="success" onClick={addNewTransaction}>
