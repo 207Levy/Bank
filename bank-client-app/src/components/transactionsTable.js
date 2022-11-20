@@ -89,7 +89,7 @@ export default function TransactionsTable(props) {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 10, 15]}
         component="div"
         count={props.transactions.length}
         rowsPerPage={rowsPerPage}
