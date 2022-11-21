@@ -6,23 +6,39 @@ export default class BankApiManager {
   }
 
   async getAllTransactions() {
-    return await axios.get(this.baseUrl + "transactions");
+    try {
+      return await axios.get(this.baseUrl + "transactions");
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
   async getFilteredTransactions(args) {
-    return await axios.get(
-      this.baseUrl +
-        "transactions" +
-        `?category=${args["category"]}&amount=${args["amount"]}&date=${args["date"]}`
-    );
+    try {
+      return await axios.get(
+        this.baseUrl +
+          "transactions" +
+          `?category=${args["category"]}&amount=${args["amount"]}&date=${args["date"]}`
+      );
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
   getBreakdown() {
-    return axios.get(this.baseUrl + "breakdown");
+    try {
+      return axios.get(this.baseUrl + "breakdown");
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
   async getBalance() {
-    return await axios.get(this.baseUrl + "transactions/balance");
+    try {
+      return await axios.get(this.baseUrl + "transactions/balance");
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
   async getCatgories() {
@@ -30,10 +46,18 @@ export default class BankApiManager {
   }
 
   async deleteTransaction(id) {
-    return await axios.delete(this.baseUrl + `transactions/${id}`);
+    try {
+      return await axios.delete(this.baseUrl + `transactions/${id}`);
+    } catch (error) {
+      console.warn(error);
+    }
   }
 
   async addNewTransaction(transaction) {
-    return await axios.post(this.baseUrl + "transactions", transaction);
+    try {
+      return await axios.post(this.baseUrl + "transactions", transaction);
+    } catch (error) {
+      console.warn(error);
+    }
   }
 }
